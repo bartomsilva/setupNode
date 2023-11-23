@@ -40,6 +40,7 @@ npx tsc --init
     "skipLibCheck": true,                          
     "allowJs": true,
     "strict": true,
+    "experimentalDecorators": true,
   },
   "exclude": [
     "node_modules", "build",  "tests", "jest.config.ts" ]
