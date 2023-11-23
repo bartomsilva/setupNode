@@ -25,7 +25,7 @@ npx tsc --init
 ```
 
 ### tsconfig.json
-```bash
+```json
 {
   "compilerOptions": {
     "target": "ES6",                                   
@@ -79,7 +79,7 @@ npm i -D @types/bcryptjs
 ```
 
 ### bcripty class
-```bash
+```ts
 .env
 BCRYPT_COST=12
 
@@ -121,8 +121,9 @@ export class HashManager {
 npm install jsonwebtoken
 npm install -D @types/jsonwebtoken
 ```
+
 ### exemplo de payload
-```bash
+```ts
 export interface TokenPayload {
     id: string,
 		name: string,
@@ -130,8 +131,8 @@ export interface TokenPayload {
 }
 export class TokenManager {
 
-		// converte o objeto de dados (payload) para um token string
-    public createToken = (payload: TokenPayload): string => {
+// converte o objeto de dados (payload) para um token string
+   public createToken = (payload: TokenPayload): string => {
         const token = jwt.sign(
             payload,
             process.env.JWT_KEY as string,
@@ -142,7 +143,7 @@ export class TokenManager {
         return token
     }
 
-		// valida e converte o token string para um objeto de dados (payload)
+// valida e converte o token string para um objeto de dados (payload)
     public getPayload = (token: string): TokenPayload | null => {
         try {
             const payload = jwt.verify(
@@ -152,9 +153,9 @@ export class TokenManager {
 
             return payload as TokenPayload
         
-				// se a validação falhar, um erro é disparado pelo jsonwebtoken
-				// nós pegamos o erro aqui e retornamos null para a Business saber que falhou
-				} catch (error) {
+	// se a validação falhar, um erro é disparado pelo jsonwebtoken
+	// nós pegamos o erro aqui e retornamos null para a Business saber que falhou
+	} catch (error) {
             return null
         }
     }
@@ -163,7 +164,7 @@ export class TokenManager {
 ```
 
 ### setup basico
-```bash
+```ts
 index.js / app.js / etc
 import  express, { Request, Response} from 'express'
 import cors from 'cors';
