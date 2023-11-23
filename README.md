@@ -42,11 +42,7 @@ npx tsc --init
     "strict": true,
   },
   "exclude": [
-    "node_modules",
-    "build",  
-    "tests",
-    "jest.config.ts"
-  ]
+    "node_modules", "build",  "tests", "jest.config.ts" ]
 }
 ```
 
@@ -71,6 +67,11 @@ npm install ts-node-dev -D
 ```bash
 npm install dotenv
 ```
+
+### mongoose
+```bash
+npm install mongoose @types/mongoose
+``` 
 
 ### bcrypt
 ```bash
@@ -210,12 +211,23 @@ try {
 index.js / app.js / etc
 import  express, { Request, Response} from 'express'
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 dotenv.config()
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const DB_URL  = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.vrkqflq.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+mongoose
+  .connect(DB_URL)
+  .then(() => {
+    console.log("conexão como banco de dados bem sucedida...");
+    app.listen(3000, ()=> console.log("servidor on port 3000"));
+  })
+  .catch((err) => console.log(err));
+
 
 ```
 
@@ -233,6 +245,51 @@ userRouter.get("/:id/purchases", exampleController.examplePurchases)
 userRouter.put("/:id/password", exampleController.examplePassword)```
 ```
 
+
+### MongoDb
+
+```ts
+
+const mongoose = require("mongoose")
+
+const personSchema = new mongoose.Schema({
+  name: String,
+  salary: Number,
+  approved: Boolean,
+}, { versionKey: false });
+
+const Person = mongoose.model('Person', personSchema);
+module.exports = Person;
+
+// verificação de tipo objectid
+const { ObjectId } = mongoose.Types;
+
+if (!ObjectId.isValid(idPerson)) {
+return res.status(400).json({ error: "ID inválido" });
+}
+
+// verificação delete
+if (!ObjectId.isValid(idPerson)) {
+return res.status(400).json({ error: "ID inválido" });
+}
+
+// verificação update
+const response = await Person.updateOne({ _id: idPerson }, updatePerson);
+if (response.matchedCount === 0) {
+   throw new Error("Usuário não encontrado!");
+}
+
+// inserir no banco de dados
+const response = await Person.create(newPerson);
+
+// pesquisa
+const person = await Person.find({_id: idPerson});
+const person = await Person.findOne(idPerson);
+const person = await Person.findById(idPerson);
+const person = await Person.findByIdUpdate()
+
+
+```
 
 
 
