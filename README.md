@@ -289,6 +289,58 @@ if(response.deletedCount === 0) {
 }
 ```
 
+### Segurança
+
+const corsOptions = {
+  origin: 'https://seusite.com',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+Este trecho de código adiciona vários cabeçalhos HTTP de segurança automaticamente ao seu aplicativo Express, ajudando a protegê-lo contra várias vulnerabilidades web.
+npm install express-rate-limit
+npm install helmet
+import helmet from 'helmet';
+// ...
+app.use(helmet());
+
+
+Configurando Limite de Taxa (Rate Limiting):
+npm install express-rate-limit
+import rateLimit from 'express-rate-limit';
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // limite de 100 requisições por IP
+});
+// Aplicando o limite de taxa a todas as rotas
+app.use(limiter);
+
+Utilizando express-validator e instalando:
+O express-validator é uma biblioteca popular para validar dados de entrada no Express
+```ts
+import { body, validationResult } from 'express-validator';
+
+// Exemplo de middleware para validar dados de entrada em uma rota específica
+app.post('/rota', [
+  // Validação utilizando express-validator
+  body('campo1').isString(),
+  body('campo2').isEmail(),
+  // Adicione mais validações conforme necessário
+], (req, res) => {
+  // Verifica os resultados da validação
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  // Se a validação passar, continue com a lógica da rota
+  // ...
+});
+```
+
+
 
 
 
