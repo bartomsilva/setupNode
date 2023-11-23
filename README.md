@@ -94,25 +94,25 @@ export class HashManager {
         return hash
     }
     public compare = async (
-			plaintext: string,
-			hash: string
-		): Promise<boolean> => {
-				// aqui não precisa do await porque o return já se comporta como um
+	plaintext: string,
+	hash: string
+	): Promise<boolean> => {
+	// aqui não precisa do await porque o return já se comporta como um
         return bcrypt.compare(plaintext, hash)
     }
 }
 
-	// hash gerado a partir da senha do body
-				const hashedPassword = await this.hashManager.hash(password)
-		// o password hasheado está no banco de dados
-		const hashedPassword = userDB.password
+// hash gerado a partir da senha do body
+const hashedPassword = await this.hashManager.hash(password)
+// o password hasheado está no banco de dados
+const hashedPassword = userDB.password
 
-		// o serviço hashManager analisa o password do body (plaintext) e o hash
-		const isPasswordCorrect = await this.hashManager.compare(password, hashedPassword)
+// o serviço hashManager analisa o password do body (plaintext) e o hash
+const isPasswordCorrect = await this.hashManager.compare(password, hashedPassword)
 
-		// validamos o resultado
-		if (!isPasswordCorrect) {
-      throw new BadRequestError("'email' ou 'password' incorretos")
+// validamos o resultado
+if (!isPasswordCorrect) {
+	throw new BadRequestError("'email' ou 'password' incorretos")
     }
 ```
 
