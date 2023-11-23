@@ -263,32 +263,29 @@ module.exports = Person;
 
 // verificação de tipo objectid
 const { ObjectId } = mongoose.Types;
-
 if (!ObjectId.isValid(idPerson)) {
 return res.status(400).json({ error: "ID inválido" });
-}
-
-// verificação delete
-if (!ObjectId.isValid(idPerson)) {
-return res.status(400).json({ error: "ID inválido" });
-}
-
-// verificação update
-const response = await Person.updateOne({ _id: idPerson }, updatePerson);
-if (response.matchedCount === 0) {
-   throw new Error("Usuário não encontrado!");
 }
 
 // inserir no banco de dados
 const response = await Person.create(newPerson);
 
 // pesquisa
-const person = await Person.find({_id: idPerson});
-const person = await Person.findOne(idPerson);
-const person = await Person.findById(idPerson);
-const person = await Person.findByIdUpdate()
+const response = await Person.find({_id: idPerson});
+const response = await Person.findOne(idPerson);
+const response = await Person.findById(idPerson);
+const respnse = await Person.findByIdUpdate(idPerson,updatePerson)
 
-
+// verificação update
+const response = await Person.updateOne(idPerson, updatePerson);
+if (response.matchedCount === 0) {
+   throw new Error("Usuário não encontrado!");
+}
+// verificação delete
+const response = await Person.deleteOne({ _id: idPerson });
+if(response.deletedCount === 0) {
+   throw new Error("Usuário não encontrado!");
+}
 ```
 
 
