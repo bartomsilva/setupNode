@@ -162,6 +162,48 @@ export class TokenManager {
 }​
 
 ```
+### validação com ZOD
+
+```bash
+npm install zod
+```
+
+### DTO Design Patterns e DTO
+```ts
+export interface CreateUserInputDTO {
+    id: string,
+    name: string,
+    email: string,
+    password: string
+}
+
+export interface CreateUserOutputDTO {
+    message: string,
+    user: {
+        id: string,
+        name: string,
+        email: string,
+        createdAt: string
+    }
+}
+
+export const CreateUserSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(2),
+  email: z.string().email(),
+  password: z.string().min(4)
+}).transform(data => data as CreateUserInputDTO)
+
+try {
+// validação do dado pelo zod
+   const input = CreateUserSchema.parse({
+      id: req.body.id,
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+   })
+```
+
 
 ### setup basico
 ```ts
@@ -177,6 +219,19 @@ app.use(cors());
 
 ```
 
+### roteador
+
+```ts
+import express from 'express'
+export const userRouter = express.Router() // criação do router de users
+
+const exampleController = new ExampleController()
+
+userRouter.get("/", exampleController.getExamples)
+userRouter.post("/", exampleController.createExample)
+userRouter.get("/:id/purchases", exampleController.examplePurchases)
+userRouter.put("/:id/password", exampleController.examplePassword)```
+```
 
 
 
