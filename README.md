@@ -2,12 +2,12 @@
 setup do nodeJs com e sem ts
 
 
-= start do projeto
+### start do projeto
 ```bash
 npm init --y
 ```
 
-= package.json
+### package.json
 ```bash (scripts)
   "scripts": {
     "start": "node ./build/index.js",
@@ -17,14 +17,14 @@ npm init --y
   },
 ```
 
-= typescript
+### typescript
 ```bash
 npm install -D typescript
 npm install -D @types/node
 npx tsc --init
 ```
 
-= tsconfig.json
+### tsconfig.json
 ```bash
 {
   "compilerOptions": {
@@ -49,36 +49,36 @@ npx tsc --init
   ]
 }
 ```
-= express
+
+### express
 ```bash
 npm install express
 npm install @types/express -D
 ```
 
-= cors
+### cors
 ```bash
 npm install cors
 npm install @types/cors -D
 ```
 
-= ts-node-dev
+### ts-node-dev
 ```bash
 npm install ts-node-dev -D
 ```
 
-= dotenv
+### dotenv
 ```bash
 npm install dotenv
 ```
 
-= bcrypt
+### bcrypt
 ```bash
 npm i bcryptjs
 npm i -D @types/bcryptjs
 ```
 
-= bcripty class
-
+### bcripty class
 ```bash
 .env
 BCRYPT_COST=12
@@ -116,14 +116,12 @@ export class HashManager {
     }
 ```
 
-
-
-= jwtoken
+### jwtoken
 ```bash
 npm install jsonwebtoken
 npm install -D @types/jsonwebtoken
 ```
-= exemplo de payload
+### exemplo de payload
 ```bash
 export interface TokenPayload {
     id: string,
@@ -164,8 +162,7 @@ export class TokenManager {
 
 ```
 
-
-= setup basico
+### setup basico
 ```bash
 index.js / app.js / etc
 import  express, { Request, Response} from 'express'
